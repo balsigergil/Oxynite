@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class FPSNetworkDiscovery : NetworkDiscovery {
+public class OxyniteNetworkDiscovery : NetworkDiscovery {
 
-    private List<string> serversIp = new List<string>();
+    private List<LanEntry> serversIp = new List<LanEntry>();
+
+    /// <summary>
+    /// Refresh timeout
+    /// </summary>
+    private const int TIMEOUT = 1;
 
     // Use this for initialization
     void Awake () {
@@ -18,13 +23,16 @@ public class FPSNetworkDiscovery : NetworkDiscovery {
     {
         StopBroadcast();
         Initialize();
+        broadcastData = SystemInfo.deviceName;
         StartAsServer();
     }
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
         base.OnReceivedBroadcast(fromAddress, data);
-        serversIp.Add(fromAddress);
+        LanEntry le = new LanEntry(fromAddress, data);
+        if(!serversIp.Contains(le))
+            serversIp.Add(le);
     }
 
     private IEnumerator CleanUpEntries()
@@ -35,12 +43,12 @@ public class FPSNetworkDiscovery : NetworkDiscovery {
             mm.CleanServers();
             if (serversIp.Count > 0)
             {
-                foreach(string server in serversIp)
+                foreach(LanEntry server in serversIp)
                 {
                     mm.AddServer(server);
                 }
             }
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(TIMEOUT);
         }
     }
 

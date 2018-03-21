@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Net;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Networking.Match;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
@@ -10,13 +9,12 @@ public class MenuManager : MonoBehaviour {
     NetworkManager nm;
 
     [SerializeField]
-    Button serverItem;
+    ServerItem serverItem;
 
     [SerializeField]
     GameObject serverList;
 
-    // Use this for initialization
-    void Start () {
+    void Awake () {
         nm = NetworkManager.singleton;
     }
 
@@ -30,19 +28,28 @@ public class MenuManager : MonoBehaviour {
 
     }
 
-    public void AddServer(string server)
+    public void AddServer(LanEntry server)
     {
-        Button item = Instantiate(serverItem);
-        item.GetComponentInChildren<Text>().text = server;
+        ServerItem item = Instantiate(serverItem);
+        item.ip = server.ipAddress;
+        item.transform.Find("Name").GetComponent<Text>().text = "LAN: " + server.hostName;
         item.transform.SetParent(serverList.transform);
     }
 
     public void CleanServers()
     {
-        for(int i = 0; i < serverList.transform.childCount; i++)
+        if (serverList)
         {
-            Destroy(serverList.transform.GetChild(i).gameObject);
+            for (int i = 0; i < serverList.transform.childCount; i++)
+            {
+                Destroy(serverList.transform.GetChild(i).gameObject);
+            }
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
 }
