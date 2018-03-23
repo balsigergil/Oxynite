@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class OxyniteNetworkDiscovery : NetworkDiscovery
 {
+    /// <summary>
+    /// Singleton
+    /// </summary>
+    private static OxyniteNetworkDiscovery s_Instance = null;
 
+    /// <summary>
+    /// List of online lan servers
+    /// </summary>
     private List<LanEntry> serverEntries = new List<LanEntry>();
 
     /// <summary>
@@ -14,36 +20,80 @@ public class OxyniteNetworkDiscovery : NetworkDiscovery
     /// </summary>
     private const int TIMEOUT = 1;
 
-    // Use this for initialization
+    private bool cleanUpLoopRunning = false;
+
+    /// <summary>
+    /// Singleton assignation
+    /// </summary>
+    private void Awake()
+    {
+        s_Instance = this;
+    }
+
+    public static OxyniteNetworkDiscovery GetInstance()
+    {
+        return s_Instance;
+    }
+
+    /// <summary>
+    /// Start discovery
+    /// </summary>
     void Start()
     {
+        s_Instance = this;
         Initialize();
         StartAsClient();
         StartCoroutine(CleanUpEntries());
     }
 
-    public void StartBroadcast()
+    /// <summary>
+    /// Start broadcasting as server
+    /// </summary>
+    public void StartBroadcasting()
     {
         StopAllCoroutines();
-        StopBroadcast();
+        cleanUpLoopRunning = false;
+        if (running)
+            StopBroadcast();
         Initialize();
         broadcastData = SystemInfo.deviceName;
         StartAsServer();
     }
 
+    /// <summary>
+    /// Start listening as client
+    /// </summary>
     public void StartListening()
     {
-        StartCoroutine(CleanUpEntries());
-        Initialize();
-        StartAsClient();
+        if (!cleanUpLoopRunning)
+            StartCoroutine(CleanUpEntries());
+
+        if (!isClient)
+        {
+            if (running)
+                StopBroadcast();
+
+            Initialize();
+            StartAsClient();
+        }
     }
 
+    /// <summary>
+    /// Stop broadcasting
+    /// </summary>
     public void StopListening()
     {
         StopAllCoroutines();
-        StopBroadcast();
+        cleanUpLoopRunning = false;
+        if (running)
+            StopBroadcast();
     }
 
+    /// <summary>
+    /// Add broadcaster to the list if it do not already exist
+    /// </summary>
+    /// <param name="fromAddress"></param>
+    /// <param name="data"></param>
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
         base.OnReceivedBroadcast(fromAddress, data);
@@ -59,14 +109,18 @@ public class OxyniteNetworkDiscovery : NetworkDiscovery
             serverEntries.Add(le);
     }
 
+    /// <summary>
+    /// Infinite loop to check for new entries and add them to the UI
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator CleanUpEntries()
     {
+        cleanUpLoopRunning = true;
         while (true)
         {
             MenuManager mm = FindObjectOfType<MenuManager>();
             if (mm != null)
             {
-                Debug.Log("Updating entries...");
                 mm.CleanServers();
                 if (serverEntries.Count > 0)
                 {
@@ -75,7 +129,6 @@ public class OxyniteNetworkDiscovery : NetworkDiscovery
                     {
                         i++;
                         mm.AddServer(server);
-                        Debug.Log(i + ": " + server.hostName);
                     }
                 }
             }
@@ -83,15 +136,17 @@ public class OxyniteNetworkDiscovery : NetworkDiscovery
         }
     }
 
-    public List<LanEntry> GetLanEntries()
-    {
-        return serverEntries.Count > 0 ? serverEntries : null;
-    }
-
+    /// <summary>
+    /// Delete all lan entries
+    /// </summary>
     public void CleanEntries()
     {
         serverEntries.Clear();
     }
 
+    public List<LanEntry> GetLanEntries()
+    {
+        return serverEntries.Count > 0 ? serverEntries : null;
+    }
 
 }

@@ -1,41 +1,58 @@
 ﻿using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
+/// <summary>
+/// The MenuManager class handles all interactions with the main menu
+/// </summary>
 public class MenuManager : MonoBehaviour {
 
     OxyniteNetworkManager nm;
     OxyniteNetworkDiscovery nd;
 
+    /// <summary>
+    /// Server slot prefab
+    /// </summary>
     [SerializeField]
-    ServerItem serverItem;
+    ServerSlot serverItem;
 
+    /// <summary>
+    /// Server slots container
+    /// </summary>
     [SerializeField]
     GameObject serverList;
 
     void Start () {
-        nm = (OxyniteNetworkManager)NetworkManager.singleton;
-        nd = FindObjectOfType<OxyniteNetworkDiscovery>();
+        nm = OxyniteNetworkManager.GetInstance();
+        nd = OxyniteNetworkDiscovery.GetInstance();
     }
 
+    /// <summary>
+    /// Handles "host" button action, start new host
+    /// </summary>
     public void HostGame()
     {
-        if(nm)
-            nm.StartHost();
+        nm.StartHost();
     }
 
+    /// <summary>
+    /// Handles "find" button action, refresh the UI
+    /// </summary>
     public void FindGame()
     {
+        nd = FindObjectOfType<OxyniteNetworkDiscovery>();
+        nd.StartListening();
         nd.CleanEntries();
         CleanServers();
         Debug.Log("List cleared");
     }
 
+    /// <summary>
+    /// Handles "ready" button action
+    /// </summary>
     public void ReadyGame()
     {
+        nd = FindObjectOfType<OxyniteNetworkDiscovery>();
         if (nd.GetLanEntries() != null)
         {
             List<LanEntry> entries = nd.GetLanEntries();
@@ -48,21 +65,31 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Handles "quit" button action
+    /// </summary>
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    /// <summary>
+    /// Add new slot to the UI
+    /// </summary>
+    /// <param name="server"></param>
     public void AddServer(LanEntry server)
     {
         if(serverList != null)
         {
-            ServerItem item = Instantiate(serverItem);
-            item.ip = server.ipAddress;
-            item.transform.Find("Name").GetComponent<Text>().text = "LAN: " + server.hostName;
+            ServerSlot item = Instantiate(serverItem);
+            item.Initialize(server);
             item.transform.SetParent(serverList.transform);
-        }
-        else
-        {
-            Debug.LogError("Server list is null");
         }
     }
 
+    /// <summary>
+    /// Remove all server slots
+    /// </summary>
     public void CleanServers()
     {
         if (serverList)
@@ -72,11 +99,6 @@ public class MenuManager : MonoBehaviour {
                 Destroy(serverList.transform.GetChild(i).gameObject);
             }
         }
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 
 }
