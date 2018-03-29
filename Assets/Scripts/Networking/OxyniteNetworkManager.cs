@@ -52,6 +52,11 @@ public class OxyniteNetworkManager : NetworkManager
             nd.StopListening();
     }
 
+    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+    {
+        base.OnServerAddPlayer(conn, playerControllerId);
+    }
+
     /// <summary>
     /// Connects the player to a server
     /// </summary>

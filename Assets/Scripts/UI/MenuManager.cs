@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,9 +23,28 @@ public class MenuManager : MonoBehaviour {
     [SerializeField]
     GameObject serverList;
 
+    [SerializeField]
+    RectTransform nicknamePanel;
+
+    [SerializeField]
+    TMP_InputField nicknameTextField;
+
+    [SerializeField]
+    TMP_Text nicknameText;
+
     void Start () {
         nm = OxyniteNetworkManager.GetInstance();
         nd = OxyniteNetworkDiscovery.GetInstance();
+
+        if (PlayerPrefs.HasKey("nickname"))
+        {
+            nicknamePanel.gameObject.SetActive(false);
+            nicknameText.text = PlayerPrefs.GetString("nickname");
+        }
+        else
+        {
+            nicknamePanel.gameObject.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -98,6 +118,23 @@ public class MenuManager : MonoBehaviour {
             {
                 Destroy(serverList.transform.GetChild(i).gameObject);
             }
+        }
+    }
+
+    public void SaveNickname()
+    {
+        PlayerPrefs.SetString("nickname", nicknameTextField.text);
+        PlayerPrefs.Save();
+        nicknameText.text = nicknameTextField.text;
+        nicknamePanel.gameObject.SetActive(false);
+    }
+
+    public void ShowNicknamePanel()
+    {
+        nicknamePanel.gameObject.SetActive(true);
+        if (PlayerPrefs.HasKey("nickname"))
+        {
+            nicknameTextField.text = PlayerPrefs.GetString("nickname");
         }
     }
 

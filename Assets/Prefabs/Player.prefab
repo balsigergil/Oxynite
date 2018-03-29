@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23073926899269668}
   - component: {fileID: 143407071924075254}
   - component: {fileID: 136993968178827436}
+  - component: {fileID: 114287217732131718}
   - component: {fileID: 114344052667561708}
   - component: {fileID: 114856202932817414}
   - component: {fileID: 114425867161835072}
@@ -472,6 +473,21 @@ MonoBehaviour:
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.2
   m_InterpolateMovement: 0
+--- !u!114 &114287217732131718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1256038762323750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e4afc410f384e43a65f43fd9316d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  disableOnDeath:
+  - {fileID: 114425867161835072}
+  - {fileID: 114344052667561708}
 --- !u!114 &114344052667561708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -506,7 +522,7 @@ MonoBehaviour:
   cam: {fileID: 20526153289203722}
   mask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294966783
 --- !u!114 &114784869990976772
 MonoBehaviour:
   m_ObjectHideFlags: 1
