@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 20526153289203722}
   - component: {fileID: 124577351852455872}
   - component: {fileID: 81641875878578992}
+  - component: {fileID: 114978931921796390}
   m_Layer: 9
   m_Name: Camera
   m_TagString: Untagged
@@ -170,7 +171,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1256038762323750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7.55, y: 1, z: -2.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4877973205726376}
@@ -572,6 +573,18 @@ MonoBehaviour:
   - {fileID: 81641875878578992}
   - {fileID: 114425867161835072}
   remoteLayerName: RemotePlayer
+--- !u!114 &114978931921796390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1820290474223282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: d2b82a52b13b9014d988055d0b2f939e, type: 2}
 --- !u!114 &114994771318940824
 MonoBehaviour:
   m_ObjectHideFlags: 1
