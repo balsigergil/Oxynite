@@ -278,6 +278,7 @@ MonoBehaviour:
   speed: 6
   jumpSpeed: 8
   gravity: 20
+  cameraRotationLimit: 85
   lookSensitivity: 200
   cam: {fileID: 20040915203034514}
 --- !u!114 &114187220891738712
@@ -316,9 +317,10 @@ MonoBehaviour:
   - {fileID: 114154052317520766}
   - {fileID: 20040915203034514}
   - {fileID: 81378613048940704}
-  - {fileID: 114563955902949436}
   - {fileID: 20547700950966790}
   remoteLayerName: RemotePlayer
+  hudPrefab: {fileID: 114138888560204792, guid: b21021ea3b6f7a34192174e2cd1aac12,
+    type: 2}
 --- !u!114 &114262648339667534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,7 +354,8 @@ MonoBehaviour:
     damage: 5
     range: 100
     fireRate: 10
-    graphics: {fileID: 1446947397722500, guid: 20ab35ed6e5c41a488b9d565f9e9aeeb, type: 2}
+    modelPrefab: {fileID: 1446947397722500, guid: 20ab35ed6e5c41a488b9d565f9e9aeeb,
+      type: 2}
 --- !u!114 &114556638235011664
 MonoBehaviour:
   m_ObjectHideFlags: 1

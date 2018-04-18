@@ -12,15 +12,11 @@ public class GameManager : MonoBehaviour {
         string playerID = PLAYER_ID_PREFIX  + netID;
         players.Add(playerID, player);
         player.transform.name = playerID;
-
-        FindObjectOfType<PlayerCount>().UpdatePlayerCount(players.Count, MIN_PLAYER);
     }
 
     public static void UnregisterPlayer(string playerID)
     {
         players.Remove(playerID);
-
-        FindObjectOfType<PlayerCount>().UpdatePlayerCount(players.Count, MIN_PLAYER);
     }
 
     public static Player GetPlayer(string playerID)
