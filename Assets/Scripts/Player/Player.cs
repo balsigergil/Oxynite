@@ -103,4 +103,13 @@ public class Player : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
+    public void RpcEnableFire()
+    {
+        if (!isLocalPlayer)
+            return;
+
+        GetComponent<PlayerShoot>().enabled = true;
+    }
+
 }

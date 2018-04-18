@@ -4,8 +4,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     private const string PLAYER_ID_PREFIX = "Player ";
-    private const int MIN_PLAYER = 2;
-    private static Dictionary<string, Player> players = new Dictionary<string, Player>();
+    public const int MIN_PLAYER = 2;
+    public static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
     public static void RegisterPlayer(string netID, Player player)
     {
@@ -13,19 +13,14 @@ public class GameManager : MonoBehaviour {
         players.Add(playerID, player);
         player.transform.name = playerID;
 
-        if(players.Count >= MIN_PLAYER)
-        {
-            
-        }
+        FindObjectOfType<PlayerCount>().UpdatePlayerCount(players.Count, MIN_PLAYER);
     }
 
     public static void UnregisterPlayer(string playerID)
     {
         players.Remove(playerID);
-        if (players.Count < MIN_PLAYER)
-        {
-            // Stop countdown
-        }
+
+        FindObjectOfType<PlayerCount>().UpdatePlayerCount(players.Count, MIN_PLAYER);
     }
 
     public static Player GetPlayer(string playerID)
