@@ -10,12 +10,15 @@ public class OxyniteNetworkManager : NetworkManager
     /// </summary>
     private static OxyniteNetworkManager s_Instance = null;
 
-    private OxyniteNetworkDiscovery nd = null;
+    /// <summary>
+    /// NetworkDiscovery singleton
+    /// </summary>
+    private OxyniteNetworkDiscovery networkDiscovery = null;
 
     void Start()
     {
         s_Instance = this;
-        nd = OxyniteNetworkDiscovery.GetInstance();
+        networkDiscovery = OxyniteNetworkDiscovery.GetInstance();
     }
 
     public static OxyniteNetworkManager GetInstance()
@@ -29,7 +32,7 @@ public class OxyniteNetworkManager : NetworkManager
     public override void OnStartHost()
     {
         base.OnStartHost();
-        nd.StartBroadcasting();
+        networkDiscovery.StartBroadcasting();
     }
 
     /// <summary>
@@ -38,7 +41,7 @@ public class OxyniteNetworkManager : NetworkManager
     public override void OnStopClient()
     {
         base.OnStopClient();
-        nd.StartListening();
+        networkDiscovery.StartListening();
     }
 
     /// <summary>
@@ -48,8 +51,8 @@ public class OxyniteNetworkManager : NetworkManager
     public override void OnStartClient(NetworkClient client)
     {
         base.OnStartClient(client);
-        if(nd.isClient)
-            nd.StopListening();
+        if(networkDiscovery.isClient)
+            networkDiscovery.StopListening();
     }
 
     /// <summary>

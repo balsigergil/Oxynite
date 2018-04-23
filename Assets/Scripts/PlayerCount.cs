@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 using TMPro;
+
+/// <summary>
+/// Displays the number of players on the HUD
+/// </summary>
 public class PlayerCount : MonoBehaviour {
 
     [SerializeField]

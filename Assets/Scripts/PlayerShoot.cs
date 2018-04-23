@@ -1,20 +1,30 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Handles the shooting
+/// </summary>
 [RequireComponent(typeof(WeaponManager))]
 public class PlayerShoot : NetworkBehaviour
 {
-
+    // Player tag, same for all player
     private const string PLAYER_TAG = "Player";
 
     private PlayerWeapon currentWeapon;
 
-    [SerializeField]
-    private Camera cam;
+    /// <summary>
+    /// Player camera for ray casting
+    /// </summary>
+    [SerializeField] private Camera cam;
 
-    [SerializeField]
-    private LayerMask mask;
+    /// <summary>
+    /// Layer mask for ray casting
+    /// </summary>
+    [SerializeField] private LayerMask mask;
 
+    /// <summary>
+    /// WeaponManager instance, handles the weapon spawning
+    /// </summary>
     private WeaponManager weaponManager;
 
     void Start()
@@ -26,6 +36,9 @@ public class PlayerShoot : NetworkBehaviour
         weaponManager = GetComponent<WeaponManager>();
     }
 
+    /// <summary>
+    /// Handles shooting when firing
+    /// </summary>
     void Update()
     {
         currentWeapon = weaponManager.GetCurrentWeapon();
@@ -42,6 +55,7 @@ public class PlayerShoot : NetworkBehaviour
         }
         else
         {
+            // Rapid fire
             if (Input.GetButtonDown("Fire1"))
             {
                 InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
@@ -52,33 +66,45 @@ public class PlayerShoot : NetworkBehaviour
         }
     }
 
-    [Command]
-    void CmdOnShoot()
+    /// <summary>
+    /// Adds shoot effect on all clients from the server
+    /// </summary>
+    [Command] void CmdOnShoot()
     {
         RpcDoShootEffect();
     }
 
-    [Command]
-    void CmdOnHit(Vector3 _pos, Vector3 _normal)
+    /// <summary>
+    /// Adds hit effect on all clients from the server
+    /// </summary>
+    [Command] void CmdOnHit(Vector3 _pos, Vector3 _normal)
     {
         RpcDoHitEffect(_pos, _normal);
     }
 
-    [ClientRpc]
-    void RpcDoShootEffect()
+    /// <summary>
+    /// Instantiates muzzle flash
+    /// </summary>
+    [ClientRpc] void RpcDoShootEffect()
     {
         weaponManager.GetCurrentGraphics().muzzleFlash.Play();
     }
 
-    [ClientRpc]
-    void RpcDoHitEffect(Vector3 _pos, Vector3 _normal)
+    /// <summary>
+    /// Instantiates hit particles
+    /// </summary>
+    /// <param name="_pos"></param>
+    /// <param name="_normal"></param>
+    [ClientRpc] void RpcDoHitEffect(Vector3 _pos, Vector3 _normal)
     {
         GameObject hitParticles = Instantiate(weaponManager.GetCurrentGraphics().hitEffectPrefab, _pos, Quaternion.LookRotation(_normal));
         Destroy(hitParticles, 1f);
     }
 
-    [Client]
-    private void Shoot()
+    /// <summary>
+    /// Ray-casts on the client only
+    /// </summary>
+    [Client] private void Shoot()
     {
         if (!isLocalPlayer)
             return;
@@ -97,8 +123,12 @@ public class PlayerShoot : NetworkBehaviour
         }
     }
 
-    [Command]
-    void CmdPlayerShot(string playerID, int damage)
+    /// <summary>
+    /// Calls take damage on the server
+    /// </summary>
+    /// <param name="playerID"></param>
+    /// <param name="damage"></param>
+    [Command] void CmdPlayerShot(string playerID, int damage)
     {
         Debug.Log(playerID + " has been shot.");
         Player player = GameManager.GetPlayer(playerID);

@@ -2,26 +2,38 @@
 using UnityEngine.Networking;
 using System.Collections;
 
+/// <summary>
+/// Handles player global properties and actions
+/// </summary>
 public class Player : NetworkBehaviour
 {
-    [SyncVar]
-    private bool _isDead = false;
+    [SyncVar] private bool _isDead = false;
     public bool isDead
     {
         get { return _isDead; }
         protected set { _isDead = value; }
     }
 
-    [SerializeField]
-    private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 100;
 
-    [SyncVar]
-    private int health;
+    /// <summary>
+    /// Player current health
+    /// </summary>
+    [SyncVar] private int health;
 
+    /// <summary>
+    /// Player HUD
+    /// </summary>
     private HUD hud;
 
-    [SerializeField]
-    private Behaviour[] disableOnDeath;
+    /// <summary>
+    /// Components to disable when player die
+    /// </summary>
+    [SerializeField] private Behaviour[] disableOnDeath;
+
+    /// <summary>
+    /// Components that were enabled before death
+    /// </summary>
     private bool[] wasEnabled;
 
     public void Update()
@@ -29,14 +41,19 @@ public class Player : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
+        // Debug death
         if (Input.GetKeyDown(KeyCode.K))
         {
             RpcTakeDamage(200);
         }
 
+        // Update HUD
         hud.UpdateHealth(health, maxHealth);
     }
 
+    /// <summary>
+    /// Initialises player components
+    /// </summary>
     public void Setup()
     {
         wasEnabled = new bool[disableOnDeath.Length];
@@ -50,6 +67,10 @@ public class Player : NetworkBehaviour
         SetDefaults();
     }
 
+    /// <summary>
+    /// Replicates the damage taken over the network
+    /// </summary>
+    /// <param name="damage"></param>
     [ClientRpc]
     public void RpcTakeDamage(int damage)
     {
@@ -65,6 +86,9 @@ public class Player : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Disables components to disable and respawn the player
+    /// </summary>
     private void Die()
     {
         isDead = true;
@@ -83,6 +107,10 @@ public class Player : NetworkBehaviour
         StartCoroutine(Respawn());
     }
 
+    /// <summary>
+    /// Wait and moves the player to a spawn point
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Respawn()
     {
         yield return new WaitForSeconds(3f);
@@ -94,6 +122,9 @@ public class Player : NetworkBehaviour
         Debug.Log(transform.name + " re-spawned");
     }
 
+    /// <summary>
+    /// Resets health
+    /// </summary>
     public void SetDefaults()
     {
         isDead = false;
@@ -108,6 +139,7 @@ public class Player : NetworkBehaviour
             _col.enabled = true;
     }
 
+    //TODO: Method currently not implemented
     [ClientRpc]
     public void RpcEnableFire()
     {

@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Handles server properties and action in the main menu
+/// </summary>
 public class ServerSlot : MonoBehaviour {
 
     private string ipAddress;

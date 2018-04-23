@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Handles the LAN server discovery
+/// </summary>
 public class OxyniteNetworkDiscovery : NetworkDiscovery
 {
     /// <summary>

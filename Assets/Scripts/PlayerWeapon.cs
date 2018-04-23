@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Player weapon properties
+/// </summary>
 [Serializable]
 public class PlayerWeapon {
 

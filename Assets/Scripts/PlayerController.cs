@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Handles player movements and rotation
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     /// <summary>

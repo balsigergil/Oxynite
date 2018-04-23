@@ -4,18 +4,26 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(Player))]
 public class PlayerSetup : NetworkBehaviour
 {
-
+    /// <summary>
+    /// Components to disable when a new player joins the game
+    /// </summary>
     [SerializeField] private Behaviour[] componentsToDisable;
 
+    /// <summary>
+    /// For remote players
+    /// </summary>
     [SerializeField] private string remoteLayerName = "RemotePlayer";
 
+    /// <summary>
+    /// Player HUD prefab
+    /// </summary>
     [SerializeField] private HUD hudPrefab;
 
     private HUD hudInstance;
 
-    private Camera sceneCam;
-
-    // Use this for initialization
+    /// <summary>
+    /// Disable components to disable if not the local player
+    /// </summary>
     void Start()
     {
         if (!isLocalPlayer)
@@ -25,16 +33,15 @@ public class PlayerSetup : NetworkBehaviour
         }
         else
         {
-            sceneCam = Camera.main;
-            if(sceneCam)
-                sceneCam.gameObject.SetActive(false);
-
             hudInstance = Instantiate(hudPrefab, hudPrefab.transform.position, hudPrefab.transform.rotation);
         }
 
         GetComponent<Player>().Setup();
     }
 
+    /// <summary>
+    /// Register the player
+    /// </summary>
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -60,9 +67,6 @@ public class PlayerSetup : NetworkBehaviour
 
     private void OnDisable()
     {
-        if (sceneCam)
-            sceneCam.gameObject.SetActive(true);
-
         GameManager.UnregisterPlayer(transform.name);
     }
 

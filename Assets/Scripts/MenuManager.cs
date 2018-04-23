@@ -7,30 +7,32 @@ using TMPro;
 /// </summary>
 public class MenuManager : MonoBehaviour {
 
+    // Singletons
     OxyniteNetworkManager networkManager;
     OxyniteNetworkDiscovery networkDiscovery;
 
     /// <summary>
     /// Server slot prefab
     /// </summary>
-    [SerializeField]
-    ServerSlot serverItem;
+    [SerializeField] ServerSlot serverItem;
 
     /// <summary>
     /// Server slots container
     /// </summary>
-    [SerializeField]
-    GameObject serverList;
+    [SerializeField] GameObject serverList;
 
-    [SerializeField]
-    RectTransform nicknamePanel;
+    // Nickname pop-up panel
+    [SerializeField] RectTransform nicknamePanel;
 
-    [SerializeField]
-    TMP_InputField nicknameTextField;
+    // Nickname input field
+    [SerializeField] TMP_InputField nicknameTextField;
 
-    [SerializeField]
-    TMP_Text nicknameText;
+    // Nickname text in header of the main menu
+    [SerializeField] TMP_Text nicknameText;
 
+    /// <summary>
+    /// Gets nickname or asks for new one
+    /// </summary>
     void Start () {
         networkManager = OxyniteNetworkManager.GetInstance();
         networkDiscovery = OxyniteNetworkDiscovery.GetInstance();
@@ -93,7 +95,7 @@ public class MenuManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Add new slot to the UI
+    /// Adds new slot to the UI
     /// </summary>
     /// <param name="server"></param>
     public void AddServerSlot(LanEntry server)
@@ -107,7 +109,7 @@ public class MenuManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Remove all server slots
+    /// Removes all server slots
     /// </summary>
     public void CleanServersList()
     {
@@ -120,6 +122,9 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Registers nickname in player preferences
+    /// </summary>
     public void SaveNickname()
     {
         PlayerPrefs.SetString("nickname", nicknameTextField.text);
@@ -128,6 +133,9 @@ public class MenuManager : MonoBehaviour {
         nicknamePanel.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Displays the pop-up
+    /// </summary>
     public void ShowNicknamePanel()
     {
         nicknamePanel.gameObject.SetActive(true);
