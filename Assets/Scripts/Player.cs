@@ -52,7 +52,7 @@ public class Player : NetworkBehaviour
     }
 
     /// <summary>
-    /// Initialises player components
+    /// Initializes player components
     /// </summary>
     public void Setup()
     {
@@ -137,6 +137,16 @@ public class Player : NetworkBehaviour
         Collider _col = GetComponent<Collider>();
         if (_col != null)
             _col.enabled = true;
+    }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 
     //TODO: Method currently not implemented

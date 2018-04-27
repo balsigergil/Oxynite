@@ -1,0 +1,13 @@
+cache:
+  paths:
+    - Library
+    - .\*.csproj
+    - .\*.sln
+
+tests:
+  script: 
+    - start /WAIT Unity.exe -batchmode -runTests -projectPath %CI_PROJECT_DIR% -testResults Tests\PlayTestResults.xml -testPlatform playmode
+  artifacts:
+    when: on_failure
+    paths:
+    - Tests\PlayTestResults.xml

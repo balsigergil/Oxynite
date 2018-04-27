@@ -32,7 +32,10 @@ public class GameManager : MonoBehaviour {
     /// <param name="playerID"></param>
     public static void UnregisterPlayer(string playerID)
     {
-        players.Remove(playerID);
+        if (players.ContainsKey(playerID))
+            players.Remove(playerID);
+        else
+            Debug.LogError("Player ID '" + playerID + "' not found");
     }
 
     public static Player GetPlayer(string playerID)
