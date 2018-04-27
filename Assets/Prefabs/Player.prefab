@@ -77,10 +77,10 @@ GameObject:
   - component: {fileID: 114154052317520766}
   - component: {fileID: 114187765591102040}
   - component: {fileID: 114563955902949436}
+  - component: {fileID: 114549373739734538}
   - component: {fileID: 114556638235011664}
   - component: {fileID: 114187220891738712}
   - component: {fileID: 114574387375821304}
-  - component: {fileID: 114549373739734538}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -228,7 +228,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -349,9 +348,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLayerName: Weapon
   weaponHolder: {fileID: 4930415233395120}
-  primaryWeapon:
-    name: Blaster
-    damage: 5
+  primaryWeaponPrefab:
+    name: Glock
+    damage: 10
     range: 100
     fireRate: 10
     modelPrefab: {fileID: 1446947397722500, guid: 20ab35ed6e5c41a488b9d565f9e9aeeb,
