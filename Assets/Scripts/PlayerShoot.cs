@@ -56,7 +56,7 @@ public class PlayerShoot : NetworkBehaviour
         else
         {
             // Rapid fire
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !GameMenu.isOn)
             {
                 InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
             }else if (Input.GetButtonUp("Fire1"))

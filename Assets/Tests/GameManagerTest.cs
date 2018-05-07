@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 public class GameManagerTest {
 
-	[Test]
+	/*[Test]
 	public void GameManager_RegisterNewPlayer() {
         GameManager.players.Clear();
         Object playerPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Player.prefab", typeof(Player));
@@ -26,5 +26,5 @@ public class GameManagerTest {
         GameManager.RegisterPlayer("test02", player2);
         GameManager.UnregisterPlayer("Player test01");
         Assert.AreEqual(GameManager.players.Count, 1);
-    }
+    }*/
 }

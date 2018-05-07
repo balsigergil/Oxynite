@@ -14,6 +14,9 @@ public class Player : NetworkBehaviour
         protected set { _isDead = value; }
     }
 
+    [SyncVar]
+    public string playerName;
+
     [SerializeField] private int maxHealth = 100;
 
     /// <summary>
@@ -137,6 +140,13 @@ public class Player : NetworkBehaviour
         Collider _col = GetComponent<Collider>();
         if (_col != null)
             _col.enabled = true;
+    }
+
+    [Command]
+    public void CmdSetPlayerName(string name)
+    {
+        playerName = name;
+        Debug.Log("Setup player name: " + name);
     }
 
     public int GetHealth()

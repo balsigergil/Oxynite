@@ -48,8 +48,14 @@ public class PlayerSetup : NetworkBehaviour
 
         string netID = GetComponent<NetworkIdentity>().netId.ToString();
         Player player = GetComponent<Player>();
-
         GameManager.RegisterPlayer(netID, player);
+        SetPlayerName(player);
+    }
+
+    [Client]
+    void SetPlayerName(Player player)
+    {
+        player.CmdSetPlayerName(PlayerPrefs.GetString("nickname"));
     }
 
     void AssignRemoteLayer()

@@ -44,14 +44,14 @@ public class GameManager : MonoBehaviour {
     }
 
     // GUI debugging
-    private void OnGUI()
+    void OnGUI()
     {
         GUILayout.BeginArea(new Rect(200, 200, 200, 500));
         GUILayout.BeginVertical();
 
         foreach (string playerID in players.Keys)
         {
-            GUILayout.Label(playerID + " - " + players[playerID].transform.name);
+            GUILayout.Label(playerID + " - " + players[playerID].playerName);
         }
 
         GUILayout.EndVertical();
