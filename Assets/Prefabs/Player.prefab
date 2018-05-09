@@ -110,7 +110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869582384156020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 516.2096, y: 78.25975, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4079916967648528}
@@ -228,6 +228,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -331,10 +332,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e4afc410f384e43a65f43fd9316d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
   maxHealth: 100
   disableOnDeath:
   - {fileID: 114563955902949436}
   - {fileID: 114154052317520766}
+  endMenuPrefab: {fileID: 114897668151316602, guid: cf5b1a4ae9825e0498ff057305bcf0e6,
+    type: 2}
 --- !u!114 &114549373739734538
 MonoBehaviour:
   m_ObjectHideFlags: 1

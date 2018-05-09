@@ -39,16 +39,13 @@ public class Player : NetworkBehaviour
     /// </summary>
     private bool[] wasEnabled;
 
+    [SerializeField]
+    private EndMenu endMenuPrefab;
+
     public void Update()
     {
         if (!isLocalPlayer)
             return;
-
-        // Debug death
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            RpcTakeDamage(200);
-        }
 
         // Update HUD
         hud.UpdateHealth(health, maxHealth);
@@ -75,7 +72,7 @@ public class Player : NetworkBehaviour
     /// </summary>
     /// <param name="damage"></param>
     [ClientRpc]
-    public void RpcTakeDamage(int damage)
+    public void RpcTakeDamage(int damage, string sourceID)
     {
         if (isDead)
             return;
@@ -85,14 +82,14 @@ public class Player : NetworkBehaviour
 
         if (health <= 0)
         {
-            Die();
+            Die(sourceID);
         }
     }
 
     /// <summary>
     /// Disables components to disable and respawn the player
     /// </summary>
-    private void Die()
+    private void Die(string sourceID)
     {
         isDead = true;
 
@@ -101,13 +98,36 @@ public class Player : NetworkBehaviour
             disableOnDeath[i].enabled = false;
         }
 
-        Collider _col = GetComponent<Collider>();
-        if (_col != null)
-            _col.enabled = false;
-
         Debug.Log(transform.name + " is dead!");
 
-        StartCoroutine(Respawn());
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<CharacterController>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
+        GetComponentInChildren<Camera>().gameObject.SetActive(false);
+
+        if (isLocalPlayer)
+        {
+            Player sourcePlayerName = GameManager.GetPlayer(sourceID);
+
+            //Show end menu
+            EndMenu endMenu = Instantiate(endMenuPrefab);
+            endMenu.SetSourcePlayerName(sourcePlayerName.playerName);
+
+            if (isServer)
+                endMenu.DisableButtons();
+
+            sourcePlayerName.GetComponentInChildren<Camera>().enabled = true;
+            sourcePlayerName.GetComponentInChildren<Camera>().tag = "MainCamera";
+
+            hud.gameObject.SetActive(false);
+            GameObject gameMenu = GameObject.Find("GameMenu");
+            gameMenu.SetActive(false);
+            endMenu.SetGameMenu(gameMenu);
+        }
+
+        
+
+        // StartCoroutine(Respawn());
     }
 
     /// <summary>
@@ -142,11 +162,32 @@ public class Player : NetworkBehaviour
             _col.enabled = true;
     }
 
-    [Command]
-    public void CmdSetPlayerName(string name)
+    void Start()
     {
-        playerName = name;
-        Debug.Log("Setup player name: " + name);
+        SetPlayerName();
+    }
+
+    [Client]
+    void SetPlayerName()
+    {
+        if (hasAuthority)
+        {
+            string name = PlayerPrefs.GetString("nickname");
+            CmdSetPlayerName(name);
+        }
+    }
+
+    [Command]
+    void CmdSetPlayerName(string playerName)
+    {
+        RpcSetPlayerName(playerName);
+    }
+
+    [ClientRpc]
+    void RpcSetPlayerName(string playerName)
+    {
+        this.playerName = playerName;
+        Debug.Log("Setup " + name + " name: " + playerName);
     }
 
     public int GetHealth()

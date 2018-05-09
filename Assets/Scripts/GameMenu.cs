@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
 {
 
     public static bool isOn = false;
+    public static bool lockCursor = true;
 
     public void QuitGame()
     {
@@ -24,7 +21,16 @@ public class GameMenu : MonoBehaviour
 
     void Start()
     {
+        lockCursor = true;
         Off();
+    }
+
+    private void OnDisable()
+    {
+        lockCursor = false;
+        Off();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void Update()
@@ -54,8 +60,12 @@ public class GameMenu : MonoBehaviour
     {
         isOn = false;
         GetComponent<Canvas>().enabled = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
 }
