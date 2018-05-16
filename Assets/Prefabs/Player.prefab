@@ -315,9 +315,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentsToDisable:
   - {fileID: 114154052317520766}
+  - {fileID: 20547700950966790}
   - {fileID: 20040915203034514}
   - {fileID: 81378613048940704}
-  - {fileID: 20547700950966790}
   remoteLayerName: RemotePlayer
   hudPrefab: {fileID: 114138888560204792, guid: b21021ea3b6f7a34192174e2cd1aac12,
     type: 2}
@@ -337,6 +337,8 @@ MonoBehaviour:
   disableOnDeath:
   - {fileID: 114563955902949436}
   - {fileID: 114154052317520766}
+  - {fileID: 114187220891738712}
+  - {fileID: 114574387375821304}
   endMenuPrefab: {fileID: 114897668151316602, guid: cf5b1a4ae9825e0498ff057305bcf0e6,
     type: 2}
 --- !u!114 &114549373739734538

@@ -27,15 +27,6 @@ public class OxyniteNetworkManager : NetworkManager
     }
 
     /// <summary>
-    /// Start broadcasting when starting a host
-    /// </summary>
-    public override void OnStartHost()
-    {
-        base.OnStartHost();
-        networkDiscovery.StartBroadcasting();
-    }
-
-    /// <summary>
     /// Begin listening when client is disconnected
     /// </summary>
     public override void OnStopClient()
@@ -51,7 +42,7 @@ public class OxyniteNetworkManager : NetworkManager
     public override void OnStartClient(NetworkClient client)
     {
         base.OnStartClient(client);
-        if(networkDiscovery.isClient)
+        if (networkDiscovery.isClient)
             networkDiscovery.StopListening();
     }
 
@@ -59,9 +50,9 @@ public class OxyniteNetworkManager : NetworkManager
     /// Connects the player to a server
     /// </summary>
     /// <param name="server"></param>
-    public void StartGame(LanEntry server)
+    public void StartGame(string ipAddress)
     {
-        networkAddress = server.ipAddress;
+        networkAddress = ipAddress;
         StartClient();
     }
 }

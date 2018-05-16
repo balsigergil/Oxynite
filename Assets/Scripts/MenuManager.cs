@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.Networking.Match;
 
 /// <summary>
 /// The MenuManager class handles all interactions with the main menu
 /// </summary>
-public class MenuManager : MonoBehaviour {
+public class MenuManager : MonoBehaviour
+{
 
     // Singletons
     OxyniteNetworkManager networkManager;
@@ -23,6 +26,7 @@ public class MenuManager : MonoBehaviour {
 
     // Nickname pop-up panel
     [SerializeField] RectTransform nicknamePanel;
+    [SerializeField] RectTransform roomNamePanel;
 
     // Nickname input field
     [SerializeField] TMP_InputField nicknameTextField;
@@ -30,12 +34,22 @@ public class MenuManager : MonoBehaviour {
     // Nickname text in header of the main menu
     [SerializeField] TMP_Text nicknameText;
 
+    [SerializeField] Toggle isLAN;
+
+    [SerializeField] TMP_InputField roomNameText;
+
+    private List<ServerSlot> roomList = new List<ServerSlot>();
+
     /// <summary>
     /// Gets nickname or asks for new one
     /// </summary>
-    void Start () {
+    void Start()
+    {
         networkManager = OxyniteNetworkManager.GetInstance();
         networkDiscovery = OxyniteNetworkDiscovery.GetInstance();
+
+        networkManager.StartMatchMaker();
+        RefreshRoomList();
 
         if (PlayerPrefs.HasKey("nickname"))
         {
@@ -48,12 +62,60 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
+    public void RefreshRoomList()
+    {
+        CleanWANServersList();
+        networkManager.matchMaker.ListMatches(0, 20, "", true, 0, 0, OnMatchCreate);
+    }
+
+    public void OnMatchCreate(bool success, string extendedInfo, List<MatchInfoSnapshot> matchList)
+    {
+        if (!success || matchList == null)
+        {
+            return;
+        }
+
+        foreach (MatchInfoSnapshot match in matchList)
+        {
+            ServerSlot roomListItem = Instantiate(serverItem);
+            roomListItem.transform.SetParent(serverList.transform);
+
+            roomList.Add(roomListItem);
+
+            if (roomListItem != null)
+            {
+                roomListItem.SetupWAN(match, JoinRoom);
+            }
+
+        }
+    }
+
+    public void JoinRoom(MatchInfoSnapshot match)
+    {
+        networkManager.matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
+    }
+
     /// <summary>
     /// Handles "host" button action, start new host
     /// </summary>
     public void HostGame()
     {
-        networkManager.StartHost();
+        if (!isLAN.isOn)
+        {
+            roomNamePanel.gameObject.SetActive(true);
+        }
+        else
+        {
+            networkManager.StartHost();
+            networkDiscovery.StartBroadcasting();
+        }
+    }
+
+    public void HostInternetGame()
+    {
+        networkManager.StartMatchMaker();
+        networkManager.matchMaker.CreateMatch(roomNameText.text, 16, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
+        networkDiscovery.StopListening();
     }
 
     /// <summary>
@@ -64,7 +126,8 @@ public class MenuManager : MonoBehaviour {
         networkDiscovery = FindObjectOfType<OxyniteNetworkDiscovery>();
         networkDiscovery.StartListening();
         networkDiscovery.CleanEntries();
-        CleanServersList();
+        CleanLANServersList();
+        RefreshRoomList();
         Debug.Log("List cleared");
     }
 
@@ -74,11 +137,17 @@ public class MenuManager : MonoBehaviour {
     public void ReadyGame()
     {
         networkDiscovery = FindObjectOfType<OxyniteNetworkDiscovery>();
-        if (networkDiscovery.GetLanEntries() != null)
+        
+        if (roomList.Count > 0)
+        {
+            ServerSlot serverSlot = roomList[Random.Range(0, roomList.Count)];
+            JoinRoom(serverSlot.GetMatch());
+        }
+        else if(networkDiscovery.GetLanEntries() != null)
         {
             List<LanEntry> entries = networkDiscovery.GetLanEntries();
             LanEntry server = entries[Random.Range(0, entries.Count)];
-            networkManager.StartGame(server);
+            networkManager.StartGame(server.ipAddress);
         }
         else
         {
@@ -98,12 +167,12 @@ public class MenuManager : MonoBehaviour {
     /// Adds new slot to the UI
     /// </summary>
     /// <param name="server"></param>
-    public void AddServerSlot(LanEntry server)
+    public void AddLANServerSlot(LanEntry server)
     {
-        if(serverList != null)
+        if (serverList != null)
         {
             ServerSlot item = Instantiate(serverItem);
-            item.Initialize(server);
+            item.SetupLAN(server);
             item.transform.SetParent(serverList.transform);
         }
     }
@@ -111,15 +180,32 @@ public class MenuManager : MonoBehaviour {
     /// <summary>
     /// Removes all server slots
     /// </summary>
-    public void CleanServersList()
+    public void CleanLANServersList()
     {
         if (serverList)
         {
             for (int i = 0; i < serverList.transform.childCount; i++)
             {
-                Destroy(serverList.transform.GetChild(i).gameObject);
+                if (serverList.transform.GetChild(i).gameObject.tag == "LAN")
+                    Destroy(serverList.transform.GetChild(i).gameObject);
             }
         }
+    }
+
+    /// <summary>
+    /// Removes all server slots
+    /// </summary>
+    public void CleanWANServersList()
+    {
+        if (serverList)
+        {
+            for (int i = 0; i < serverList.transform.childCount; i++)
+            {
+                if (serverList.transform.GetChild(i).gameObject.tag == "WAN")
+                    Destroy(serverList.transform.GetChild(i).gameObject);
+            }
+        }
+        roomList.Clear();
     }
 
     /// <summary>

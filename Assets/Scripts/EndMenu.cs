@@ -59,4 +59,9 @@ public class EndMenu : MonoBehaviour {
         this.gameMenu = gameMenu;
     }
 
+    public void Respawn()
+    {
+        GameManager.GetLocalPlayer().CmdRespawn();
+    }
+
 }

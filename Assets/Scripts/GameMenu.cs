@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.Match;
 
 public class GameMenu : MonoBehaviour
 {
@@ -16,10 +17,21 @@ public class GameMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        if (NetworkManager.singleton.matchInfo != null)
+        {
+            MatchInfo matchInfo = NetworkManager.singleton.matchInfo;
+            NetworkManager.singleton.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, NetworkManager.singleton.OnDropConnection);
+        }
         NetworkManager.singleton.StopHost();
     }
 
     void Start()
+    {
+        lockCursor = true;
+        Off();
+    }
+
+    private void OnEnable()
     {
         lockCursor = true;
         Off();

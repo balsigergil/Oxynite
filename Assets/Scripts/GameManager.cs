@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 /// <summary>
 /// Handles online players
@@ -56,6 +57,18 @@ public class GameManager : MonoBehaviour {
 
         GUILayout.EndVertical();
         GUILayout.EndArea();
+    }
+
+    public static Player GetLocalPlayer()
+    {
+        foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer && player.GetComponent<Player>() != null)
+            {
+                return player.GetComponent<Player>();
+            }
+        }
+        return null;
     }
 
 }

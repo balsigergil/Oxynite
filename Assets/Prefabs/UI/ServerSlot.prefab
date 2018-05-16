@@ -261,7 +261,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114378897024981604}
-        m_MethodName: ConnectToServer
+        m_MethodName: JoinRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe86b55dee46e194589819eea1652776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLAN: 1
 --- !u!114 &114483723595204706
 MonoBehaviour:
   m_ObjectHideFlags: 1

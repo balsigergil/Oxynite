@@ -29,6 +29,10 @@ public class Player : NetworkBehaviour
     /// </summary>
     private HUD hud;
 
+    private EndMenu endMenu;
+
+    private GameObject gameMenu;
+
     /// <summary>
     /// Components to disable when player die
     /// </summary>
@@ -41,6 +45,10 @@ public class Player : NetworkBehaviour
 
     [SerializeField]
     private EndMenu endMenuPrefab;
+
+    private GameObject cam;
+
+    private Player sourcePlayer;
 
     public void Update()
     {
@@ -91,6 +99,7 @@ public class Player : NetworkBehaviour
     /// </summary>
     private void Die(string sourceID)
     {
+        Debug.Log(transform.name + " is dead!");
         isDead = true;
 
         for (int i = 0; i < disableOnDeath.Length; i++)
@@ -98,49 +107,66 @@ public class Player : NetworkBehaviour
             disableOnDeath[i].enabled = false;
         }
 
-        Debug.Log(transform.name + " is dead!");
-
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<CharacterController>().enabled = false;
         GetComponent<CapsuleCollider>().enabled = false;
-        GetComponentInChildren<Camera>().gameObject.SetActive(false);
+
+        cam = GetComponentInChildren<Camera>().gameObject;
+        cam.SetActive(false);
 
         if (isLocalPlayer)
         {
-            Player sourcePlayerName = GameManager.GetPlayer(sourceID);
+            sourcePlayer = GameManager.GetPlayer(sourceID);
 
-            //Show end menu
-            EndMenu endMenu = Instantiate(endMenuPrefab);
-            endMenu.SetSourcePlayerName(sourcePlayerName.playerName);
+            // Show end menu
+            endMenu = Instantiate(endMenuPrefab);
+            endMenu.SetSourcePlayerName(sourcePlayer.playerName);
 
             if (isServer)
                 endMenu.DisableButtons();
 
-            sourcePlayerName.GetComponentInChildren<Camera>().enabled = true;
-            sourcePlayerName.GetComponentInChildren<Camera>().tag = "MainCamera";
+            sourcePlayer.GetComponentInChildren<Camera>().enabled = true;
 
             hud.gameObject.SetActive(false);
-            GameObject gameMenu = GameObject.Find("GameMenu");
+            gameMenu = GameObject.Find("GameMenu");
             gameMenu.SetActive(false);
             endMenu.SetGameMenu(gameMenu);
         }
+    }
 
-        
-
-        // StartCoroutine(Respawn());
+    [Command]
+    public void CmdRespawn()
+    {
+        RpcRespawn();
     }
 
     /// <summary>
     /// Wait and moves the player to a spawn point
     /// </summary>
     /// <returns></returns>
-    private IEnumerator Respawn()
+    [ClientRpc]
+    private void RpcRespawn()
     {
-        yield return new WaitForSeconds(3f);
         SetDefaults();
         Transform startPoint = NetworkManager.singleton.GetStartPosition();
         transform.position = startPoint.position;
         transform.rotation = startPoint.rotation;
+
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<CharacterController>().enabled = true;
+        GetComponent<CapsuleCollider>().enabled = true;
+
+        cam.SetActive(true);
+
+        if (isLocalPlayer)
+        {
+            Destroy(endMenu.gameObject);
+
+            sourcePlayer.GetComponentInChildren<Camera>().enabled = false;
+
+            hud.gameObject.SetActive(true);
+            gameMenu.SetActive(true);
+        }
 
         Debug.Log(transform.name + " re-spawned");
     }

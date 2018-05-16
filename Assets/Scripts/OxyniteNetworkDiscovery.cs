@@ -124,14 +124,14 @@ public class OxyniteNetworkDiscovery : NetworkDiscovery
             MenuManager mm = FindObjectOfType<MenuManager>();
             if (mm != null)
             {
-                mm.CleanServersList();
+                mm.CleanLANServersList();
                 if (serverEntries.Count > 0)
                 {
                     int i = 0;
                     foreach (LanEntry server in serverEntries)
                     {
                         i++;
-                        mm.AddServerSlot(server);
+                        mm.AddLANServerSlot(server);
                     }
                 }
             }
