@@ -21,16 +21,6 @@ public class EndMenu : MonoBehaviour {
     private RectTransform panel;
 
     private string sourcePlayerName = "";
-    private GameObject gameMenu;
-
-    public void Spectate()
-    {
-        panel.gameObject.SetActive(false);
-        gameMenu.SetActive(true);
-        GameMenu.lockCursor = false;
-        specText.enabled = true;
-        specText.text = "Spectating " + sourcePlayerName;
-    }
 
     public void BackToMenu()
     {
@@ -52,11 +42,7 @@ public class EndMenu : MonoBehaviour {
     {
         sourcePlayerName = playerName;
         killText.text = sourcePlayerName + " eliminated you !";
-    }
-
-    public void SetGameMenu(GameObject gameMenu)
-    {
-        this.gameMenu = gameMenu;
+        specText.text = "Spectating " + sourcePlayerName;
     }
 
     public void Respawn()

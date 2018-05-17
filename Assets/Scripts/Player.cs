@@ -31,7 +31,7 @@ public class Player : NetworkBehaviour
 
     private EndMenu endMenu;
 
-    private GameObject gameMenu;
+    private GameMenu gameMenu;
 
     /// <summary>
     /// Components to disable when player die
@@ -121,6 +121,7 @@ public class Player : NetworkBehaviour
             // Show end menu
             endMenu = Instantiate(endMenuPrefab);
             endMenu.SetSourcePlayerName(sourcePlayer.playerName);
+            GameMenu.lockCursor = false;
 
             if (isServer)
                 endMenu.DisableButtons();
@@ -128,9 +129,6 @@ public class Player : NetworkBehaviour
             sourcePlayer.GetComponentInChildren<Camera>().enabled = true;
 
             hud.gameObject.SetActive(false);
-            gameMenu = GameObject.Find("GameMenu");
-            gameMenu.SetActive(false);
-            endMenu.SetGameMenu(gameMenu);
         }
     }
 
@@ -164,8 +162,8 @@ public class Player : NetworkBehaviour
 
             sourcePlayer.GetComponentInChildren<Camera>().enabled = false;
 
+            GameMenu.lockCursor = true;
             hud.gameObject.SetActive(true);
-            gameMenu.SetActive(true);
         }
 
         Debug.Log(transform.name + " re-spawned");
