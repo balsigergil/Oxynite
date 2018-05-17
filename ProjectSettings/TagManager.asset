@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LAN
   - WAN
+  - WeaponItem
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - LocalPlayer
   - RemotePlayer
   - Weapon
-  - 
-  - 
+  - Map
+  - WeaponCollider
   - 
   - 
   - 

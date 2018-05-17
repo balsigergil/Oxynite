@@ -101,6 +101,7 @@ public class Player : NetworkBehaviour
     {
         Debug.Log(transform.name + " is dead!");
         isDead = true;
+        GetComponent<PlayerShoot>().CancelInvoke("Shoot");
 
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
@@ -211,7 +212,6 @@ public class Player : NetworkBehaviour
     void RpcSetPlayerName(string playerName)
     {
         this.playerName = playerName;
-        Debug.Log("Setup " + name + " name: " + playerName);
     }
 
     public int GetHealth()

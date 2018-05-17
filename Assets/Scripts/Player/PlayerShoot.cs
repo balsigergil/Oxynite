@@ -10,7 +10,7 @@ public class PlayerShoot : NetworkBehaviour
     // Player tag, same for all player
     private const string PLAYER_TAG = "Player";
 
-    private PlayerWeapon currentWeapon;
+    private Weapon currentWeapon;
 
     /// <summary>
     /// Player camera for ray casting
@@ -46,22 +46,25 @@ public class PlayerShoot : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if(currentWeapon.fireRate <= 0f)
+        if (currentWeapon)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if(currentWeapon.fireRate <= 0f)
             {
-                Shoot();
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Shoot();
+                }
             }
-        }
-        else
-        {
-            // Rapid fire
-            if (Input.GetButtonDown("Fire1") && !GameMenu.isOn)
+            else
             {
-                InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
-            }else if (Input.GetButtonUp("Fire1"))
-            {
-                CancelInvoke("Shoot");
+                // Rapid fire
+                if (Input.GetButtonDown("Fire1") && !GameMenu.isOn)
+                {
+                    InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
+                }else if (Input.GetButtonUp("Fire1"))
+                {
+                    CancelInvoke("Shoot");
+                }
             }
         }
     }
@@ -87,7 +90,8 @@ public class PlayerShoot : NetworkBehaviour
     /// </summary>
     [ClientRpc] void RpcDoShootEffect()
     {
-        weaponManager.GetCurrentGraphics().muzzleFlash.Play();
+        if(weaponManager.GetCurrentGraphics())
+            weaponManager.GetCurrentGraphics().muzzleFlash.Play();
     }
 
     /// <summary>

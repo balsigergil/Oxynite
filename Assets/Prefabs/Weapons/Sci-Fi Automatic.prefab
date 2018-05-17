@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 33244954420983276}
   - component: {fileID: 23196104029822368}
   - component: {fileID: 114369921023040804}
+  - component: {fileID: 114357429056675400}
   m_Layer: 0
   m_Name: Sci-Fi Automatic
   m_TagString: Untagged
@@ -177,6 +178,38 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446947397722500}
   m_Mesh: {fileID: 4300000, guid: e5c6f736bb24589478fd893a18d09350, type: 3}
+--- !u!114 &114357429056675400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446947397722500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 32
+    i1: 171
+    i2: 53
+    i3: 237
+    i4: 110
+    i5: 92
+    i6: 65
+    i7: 164
+    i8: 136
+    i9: 185
+    i10: 213
+    i11: 101
+    i12: 249
+    i13: 233
+    i14: 174
+    i15: 235
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114369921023040804
 MonoBehaviour:
   m_ObjectHideFlags: 1
