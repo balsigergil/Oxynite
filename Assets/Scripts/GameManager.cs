@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 /// <summary>
 /// Handles online players
 /// </summary>
-public class GameManager : MonoBehaviour {
+public class GameManager : NetworkBehaviour {
 
     private const string PLAYER_ID_PREFIX = "Player ";
 
@@ -14,6 +14,16 @@ public class GameManager : MonoBehaviour {
 
     // Online players
     public static Dictionary<string, Player> players = new Dictionary<string, Player>();
+
+    [SerializeField]
+    private WeaponSpawner weaponSpawner;
+
+    public static GameManager singleton;
+
+    void Awake()
+    {
+        singleton = this;
+    }
 
     /// <summary>
     /// Register a new player when it joined
@@ -25,6 +35,8 @@ public class GameManager : MonoBehaviour {
         string playerID = PLAYER_ID_PREFIX  + netID;
         players.Add(playerID, player);
         player.transform.name = playerID;
+        if (players.Count >= MIN_PLAYER && singleton.hasAuthority)
+            singleton.weaponSpawner.CmdSpawnWeapons();
     }
 
     /// <summary>

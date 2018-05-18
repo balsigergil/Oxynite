@@ -38,8 +38,8 @@ GameObject:
   - component: {fileID: 33471032345978912}
   - component: {fileID: 23830046008819496}
   - component: {fileID: 135447734017185298}
-  - component: {fileID: 114539951585582008}
   - component: {fileID: 54893967071996544}
+  - component: {fileID: 114539951585582008}
   - component: {fileID: 114241206815988610}
   m_Layer: 0
   m_Name: SMG_Pickup
@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1605025212115706}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -14.71, y: 2.103, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children:
   - {fileID: 4965463595644486}

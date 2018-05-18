@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 4
-  m_SendInterval: 0.07692308
+  m_SendInterval: 0.0625
   m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -354,13 +354,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLayerName: Weapon
   weaponHolder: {fileID: 4930415233395120}
-  primaryWeaponPrefab:
-    name: Glock
-    damage: 10
-    range: 100
-    fireRate: 10
-    modelPrefab: {fileID: 1446947397722500, guid: 20ab35ed6e5c41a488b9d565f9e9aeeb,
-      type: 2}
 --- !u!114 &114556638235011664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -433,7 +426,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866209620533470}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
