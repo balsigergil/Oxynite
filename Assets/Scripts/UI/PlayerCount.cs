@@ -4,14 +4,12 @@ using TMPro;
 /// <summary>
 /// Displays the number of players on the HUD
 /// </summary>
+[RequireComponent(typeof(TMP_Text))]
 public class PlayerCount : MonoBehaviour {
-
-    [SerializeField]
-    private TMP_Text text;
 
     public void UpdatePlayerCount(int count)
     {
-        text.SetText(count + " joueur(s)");
+        GetComponent<TMP_Text>().SetText(count + " joueur(s)");
     }
 
 }

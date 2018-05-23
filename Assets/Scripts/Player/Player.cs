@@ -223,6 +223,11 @@ public class Player : NetworkBehaviour
         return maxHealth;
     }
 
+    public HUD GetHUD()
+    {
+        return hud;
+    }
+
     //TODO: Method currently not implemented
     [ClientRpc]
     public void RpcEnableFire()

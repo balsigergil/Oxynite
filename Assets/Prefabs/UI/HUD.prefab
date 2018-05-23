@@ -212,7 +212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &114104653495799574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -340,6 +340,7 @@ MonoBehaviour:
   healthBar: {fileID: 114500395628341912}
   healthText: {fileID: 114747096207598298}
   playerCount: {fileID: 114264690085823796}
+  headerText: {fileID: 114976871000996362}
 --- !u!114 &114156812886360864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -378,7 +379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84fbbb7ba19bd0e4daf8360b16de927c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 114104653495799574}
 --- !u!114 &114371031787583554
 MonoBehaviour:
   m_ObjectHideFlags: 1

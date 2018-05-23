@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Mouse look sensitivity
     /// </summary>
-    [SerializeField] private float lookSensitivity = 50f;
+    [SerializeField] private float lookSensitivity = 10f;
 
     private float cameraRotationX = 0f;
     private float currentCameraRotationX = 0f;

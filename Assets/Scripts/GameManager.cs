@@ -1,6 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+
+public enum GameState
+{
+    WAITING,
+    INGAME
+}
 
 /// <summary>
 /// Handles online players
@@ -20,9 +27,53 @@ public class GameManager : NetworkBehaviour {
 
     public static GameManager singleton;
 
+    private const float COUNTDOWN = 5;
+
+    [SyncVar]
+    private float currCountdown;
+
+    private HUD hudInstance;
+
+    [SyncVar]
+    public GameState gameState = GameState.WAITING;
+
     void Awake()
     {
         singleton = this;
+    }
+
+    [Command]
+    private void CmdStartGame()
+    {
+        RpcStartGame();
+    }
+
+    [ClientRpc]
+    private void RpcStartGame()
+    {
+        gameState = GameState.INGAME;
+        StartCoroutine(LoopStartGame());
+    }
+
+    private IEnumerator LoopStartGame()
+    {
+        yield return new WaitForSeconds(2f);
+
+        currCountdown = COUNTDOWN;
+        hudInstance = FindObjectOfType<HUD>();
+
+        while (currCountdown > 0)
+        {
+            hudInstance.SetHeaderText("Lancement dans " + currCountdown);
+            yield return new WaitForSeconds(1f);
+            currCountdown--;
+        }
+        hudInstance.SetHeaderText("GOOOO ! ");
+        if (hasAuthority)
+            weaponSpawner.CmdSpawnWeapons();
+
+        yield return new WaitForSeconds(2f);
+        hudInstance.SetHeaderText("");
     }
 
     /// <summary>
@@ -35,8 +86,8 @@ public class GameManager : NetworkBehaviour {
         string playerID = PLAYER_ID_PREFIX  + netID;
         players.Add(playerID, player);
         player.transform.name = playerID;
-        if (players.Count >= MIN_PLAYER && singleton.hasAuthority)
-            singleton.weaponSpawner.CmdSpawnWeapons();
+        if (players.Count >= MIN_PLAYER && singleton.hasAuthority && singleton.gameState == GameState.WAITING)
+            singleton.CmdStartGame();
     }
 
     /// <summary>
@@ -55,21 +106,6 @@ public class GameManager : NetworkBehaviour {
     {
         return players[playerID];
     }
-
-    // GUI debugging
-    /*void OnGUI()
-    {
-        GUILayout.BeginArea(new Rect(200, 200, 200, 500));
-        GUILayout.BeginVertical();
-
-        foreach (string playerID in players.Keys)
-        {
-            GUILayout.Label(playerID + " - " + players[playerID].playerName);
-        }
-
-        GUILayout.EndVertical();
-        GUILayout.EndArea();
-    }*/
 
     public static Player GetLocalPlayer()
     {

@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class HUD : MonoBehaviour {
 
-    [SerializeField]
-    private Slider healthBar;
-    [SerializeField]
-    private TMP_Text healthText;
-    [SerializeField]
-    private PlayerCount playerCount;
+    [SerializeField] private Slider healthBar;
+
+    [SerializeField] private TMP_Text healthText;
+
+    [SerializeField] private PlayerCount playerCount;
+
+    [SerializeField] private TMP_Text headerText;
 
     public void UpdateHealth(int health, int maxHealth)
     {
@@ -19,9 +18,20 @@ public class HUD : MonoBehaviour {
         healthText.text = health.ToString();
     }
 
+    private void Start()
+    {
+        if (GameManager.singleton.gameState == GameState.INGAME)
+            headerText.SetText("");
+    }
+
     void Update()
     {
         playerCount.UpdatePlayerCount(GameManager.players.Count);
+    }
+
+    public void SetHeaderText(string text)
+    {
+        headerText.SetText(text);
     }
 
 }
