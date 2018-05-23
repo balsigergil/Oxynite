@@ -195,7 +195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1959996440010456
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,14 +260,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 18.8
-  m_fontSizeBase: 36
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 514
+  m_textAlignment: 516
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -341,6 +341,7 @@ MonoBehaviour:
   healthText: {fileID: 114747096207598298}
   playerCount: {fileID: 114264690085823796}
   headerText: {fileID: 114976871000996362}
+  killText: {fileID: 114928621290535600}
 --- !u!114 &114156812886360864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -798,7 +799,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 516
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1150,8 +1151,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -71, y: -33}
-  m_SizeDelta: {x: 110.79999, y: 36.399994}
+  m_AnchoredPosition: {x: -135.40002, y: -33}
+  m_SizeDelta: {x: 239.6, y: 36.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224682298256606900
 RectTransform:
@@ -1204,7 +1205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -138.99994, y: -73.3}
+  m_AnchoredPosition: {x: -138.99994, y: -73.18001}
   m_SizeDelta: {x: 232.40002, y: 26.600006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224806668119767304

@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSpawner: {fileID: 1732347152}
+  gameState: 0
 --- !u!4 &277898084
 Transform:
   m_ObjectHideFlags: 0

@@ -23,6 +23,8 @@ public class Player : NetworkBehaviour
     /// </summary>
     [SyncVar] private int health;
 
+    [SyncVar] private int kills;
+
     /// <summary>
     /// Player HUD
     /// </summary>
@@ -49,13 +51,12 @@ public class Player : NetworkBehaviour
 
     private Player sourcePlayer;
 
-    public void Update()
+    private void Update()
     {
         if (!isLocalPlayer)
             return;
 
-        // Update HUD
-        hud.UpdateHealth(health, maxHealth);
+        hud.UpdateKills(kills);
     }
 
     /// <summary>
@@ -85,6 +86,10 @@ public class Player : NetworkBehaviour
             return;
 
         health -= damage;
+
+        if(isLocalPlayer)
+            hud.UpdateHealth(health, maxHealth);
+
         Debug.Log(transform.name + " now has " + health + " health.");
 
         if (health <= 0)
@@ -114,10 +119,15 @@ public class Player : NetworkBehaviour
         cam = GetComponentInChildren<Camera>().gameObject;
         cam.SetActive(false);
 
+        sourcePlayer = GameManager.GetPlayer(sourceID);
+        sourcePlayer.AddKill();
+
+        if(hud)
+            hud.UpdateKills(kills);
+
+
         if (isLocalPlayer)
         {
-            sourcePlayer = GameManager.GetPlayer(sourceID);
-
             // Show end menu
             endMenu = Instantiate(endMenuPrefab);
             endMenu.SetSourcePlayerName(sourcePlayer.playerName);
@@ -164,6 +174,7 @@ public class Player : NetworkBehaviour
 
             GameMenu.lockCursor = true;
             hud.gameObject.SetActive(true);
+            hud.UpdateHealth(health, maxHealth);
         }
 
         Debug.Log(transform.name + " re-spawned");
@@ -211,6 +222,11 @@ public class Player : NetworkBehaviour
     void RpcSetPlayerName(string playerName)
     {
         this.playerName = playerName;
+    }
+
+    public void AddKill()
+    {
+        kills += 1;
     }
 
     public int GetHealth()

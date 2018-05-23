@@ -12,6 +12,8 @@ public class HUD : MonoBehaviour {
 
     [SerializeField] private TMP_Text headerText;
 
+    [SerializeField] private TMP_Text killText;
+
     public void UpdateHealth(int health, int maxHealth)
     {
         healthBar.value = (float) health / maxHealth;
@@ -32,6 +34,11 @@ public class HUD : MonoBehaviour {
     public void SetHeaderText(string text)
     {
         headerText.SetText(text);
+    }
+
+    public void UpdateKills(int kills)
+    {
+        killText.SetText(kills + " kill(s)");
     }
 
 }
