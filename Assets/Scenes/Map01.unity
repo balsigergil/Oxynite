@@ -847,7 +847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1843723881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,7 +883,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1869582384156020, guid: 06213508ab8c8a844b5deff076dd9070,
+  m_PlayerPrefab: {fileID: 1657470762533004, guid: b27e452b2564f01499b0e453832eae8e,
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1

@@ -14,6 +14,10 @@ public class HUD : MonoBehaviour {
 
     [SerializeField] private TMP_Text killText;
 
+    [SerializeField] private TMP_Text ammunitionText;
+
+    [SerializeField] private Loader loader;
+
     public void UpdateHealth(int health, int maxHealth)
     {
         healthBar.value = (float) health / maxHealth;
@@ -39,6 +43,16 @@ public class HUD : MonoBehaviour {
     public void UpdateKills(int kills)
     {
         killText.SetText(kills + " kill(s)");
+    }
+
+    public void SetAmmunitionText(string text)
+    {
+        ammunitionText.SetText(text);
+    }
+
+    public Loader GetLoader()
+    {
+        return loader;
     }
 
 }

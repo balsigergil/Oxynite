@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
 /// <summary>
 /// Handles player movements and rotation
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Mouse look sensitivity
     /// </summary>
-    [SerializeField] private float lookSensitivity = 10f;
+    [SerializeField] private float lookSensitivity = 50f;
 
     private float cameraRotationX = 0f;
     private float currentCameraRotationX = 0f;
@@ -50,17 +51,24 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         CharacterController controller = GetComponent<CharacterController>();
-
         // Player movement
         if (controller.isGrounded)
         {
+            if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                GetComponent<Animator>().SetBool("Run", true);
+            else
+                GetComponent<Animator>().SetBool("Run", false);
+
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= speed;
-            if (Input.GetButton("Jump"))
+            if (Input.GetButton("Jump") && !GameMenu.isOn)
+            {
                 moveDirection.y = jumpSpeed;
+                GetComponent<NetworkAnimator>().SetTrigger("Jump");
+            }
 
-            if(GameMenu.isOn)
+            if (GameMenu.isOn)
                 moveDirection = Vector3.zero;
         }
 

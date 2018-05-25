@@ -165,7 +165,7 @@ MonoBehaviour:
     i14: 206
     i15: 190
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114539951585582008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,8 +177,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09d8d8bcab91ad41854e926db4c2c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: a62e7007c6ee8184fa53334384b5489d, type: 2}
   gravityCollider: {fileID: 135066524100223656}
+  damage: 10
+  range: 100
+  magazineSize: 50
+  totalAmmunitionCount: 200
+  ammunition: 50
+  ammunitionCount: 200
+  reloadTime: 2
+  fireRate: 10
+  modelPrefab: {fileID: 1446947397722500, guid: 20ab35ed6e5c41a488b9d565f9e9aeeb,
+    type: 2}
 --- !u!135 &135066524100223656
 SphereCollider:
   m_ObjectHideFlags: 1

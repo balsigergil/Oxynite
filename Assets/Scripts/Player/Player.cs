@@ -38,6 +38,7 @@ public class Player : NetworkBehaviour
     /// Components to disable when player die
     /// </summary>
     [SerializeField] private Behaviour[] disableOnDeath;
+    [SerializeField] private Transform rightGunBone;
 
     /// <summary>
     /// Components that were enabled before death
@@ -111,10 +112,12 @@ public class Player : NetworkBehaviour
         {
             disableOnDeath[i].enabled = false;
         }
-
-        GetComponent<MeshRenderer>().enabled = false;
+        GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
         GetComponent<CharacterController>().enabled = false;
         GetComponent<CapsuleCollider>().enabled = false;
+
+        if(rightGunBone.transform.childCount > 0)
+            rightGunBone.transform.GetChild(0).gameObject.SetActive(false);
 
         cam = GetComponentInChildren<Camera>().gameObject;
         cam.SetActive(false);
@@ -160,9 +163,12 @@ public class Player : NetworkBehaviour
         transform.position = startPoint.position;
         transform.rotation = startPoint.rotation;
 
-        GetComponent<MeshRenderer>().enabled = true;
+        GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
         GetComponent<CharacterController>().enabled = true;
         GetComponent<CapsuleCollider>().enabled = true;
+
+        if (rightGunBone.transform.childCount > 0)
+            rightGunBone.transform.GetChild(0).gameObject.SetActive(true);
 
         cam.SetActive(true);
 

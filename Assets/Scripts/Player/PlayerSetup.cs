@@ -54,6 +54,7 @@ public class PlayerSetup : NetworkBehaviour
     void AssignRemoteLayer()
     {
         gameObject.layer = LayerMask.NameToLayer(remoteLayerName);
+        GetComponentInChildren<SkinnedMeshRenderer>().gameObject.layer = LayerMask.NameToLayer(remoteLayerName);
     }
 
     void DisableComponents()
