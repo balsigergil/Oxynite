@@ -139,7 +139,7 @@ public class Player : NetworkBehaviour
             if (isServer)
                 endMenu.DisableButtons();
 
-            sourcePlayer.GetComponentInChildren<Camera>().enabled = true;
+            sourcePlayer.GetComponent<PlayerController>().GetTpsCam().enabled = true;
 
             hud.gameObject.SetActive(false);
         }
@@ -176,7 +176,7 @@ public class Player : NetworkBehaviour
         {
             Destroy(endMenu.gameObject);
 
-            sourcePlayer.GetComponentInChildren<Camera>().enabled = false;
+            sourcePlayer.GetComponent<PlayerController>().GetTpsCam().enabled = false;
 
             GameMenu.lockCursor = true;
             hud.gameObject.SetActive(true);
@@ -248,16 +248,6 @@ public class Player : NetworkBehaviour
     public HUD GetHUD()
     {
         return hud;
-    }
-
-    //TODO: Method currently not implemented
-    [ClientRpc]
-    public void RpcEnableFire()
-    {
-        if (!isLocalPlayer)
-            return;
-
-        GetComponent<PlayerShoot>().enabled = true;
     }
 
 }

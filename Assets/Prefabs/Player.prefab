@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 81378613048940704}
   - component: {fileID: 114750720055593464}
   m_Layer: 9
-  m_Name: Camera
+  m_Name: FpsCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869582384156020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 516.2096, y: 78.25975, z: 0}
+  m_LocalPosition: {x: -26.210054, y: 1, z: 7.607517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4079916967648528}
@@ -339,6 +339,7 @@ MonoBehaviour:
   - {fileID: 114154052317520766}
   - {fileID: 114187220891738712}
   - {fileID: 114574387375821304}
+  rightGunBone: {fileID: 0}
   endMenuPrefab: {fileID: 114897668151316602, guid: cf5b1a4ae9825e0498ff057305bcf0e6,
     type: 2}
 --- !u!114 &114549373739734538
@@ -353,7 +354,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponLayerName: Weapon
-  weaponHolder: {fileID: 4930415233395120}
+  rightGunBone: {fileID: 0}
+  isReloading: 0
+  controllerWithWeapon: {fileID: 0}
+  controllerWithoutWeapon: {fileID: 0}
 --- !u!114 &114556638235011664
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -34,18 +34,48 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Player camera to rotate
     /// </summary>
-    [SerializeField] private Camera cam;
+    [SerializeField] private Camera fpsCam;
+
+    [SerializeField] private Camera tpsCam;
+
+    [SerializeField] private Camera weaponCam;
+
+    private Camera activeCam;
 
     /// <summary>
     /// Final move direction vector
     /// </summary>
     private Vector3 moveDirection = Vector3.zero;
 
+    void Start()
+    {
+        tpsCam.enabled = false;
+        activeCam = fpsCam;
+    }
+
     void Update()
     {
         Move();
         Rotate();
         CamRotate();
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (fpsCam.enabled)
+            {
+                tpsCam.enabled = true;
+                fpsCam.enabled = false;
+                activeCam = tpsCam;
+                weaponCam.enabled = false;
+            }
+            else
+            {
+                tpsCam.enabled = false;
+                fpsCam.enabled = true;
+                activeCam = fpsCam;
+                weaponCam.enabled = true;
+            }
+        }
     }
 
     void Move()
@@ -89,7 +119,7 @@ public class PlayerController : MonoBehaviour
     void CamRotate()
     {
         // Camera rotation (Yaw)
-        if (cam && !GameMenu.isOn)
+        if (activeCam && !GameMenu.isOn)
         {
             cameraRotationX = Input.GetAxisRaw("Mouse Y") * lookSensitivity * Time.deltaTime;
             // Set our rotation and clamp it
@@ -97,7 +127,17 @@ public class PlayerController : MonoBehaviour
             currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
 
             //Apply our rotation to the transform of our camera
-            cam.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
+            activeCam.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
         }
+    }
+
+    public Camera GetActiveCam()
+    {
+        return activeCam;
+    }
+
+    public Camera GetTpsCam()
+    {
+        return tpsCam;
     }
 }

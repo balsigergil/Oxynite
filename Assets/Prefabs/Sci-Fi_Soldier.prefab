@@ -41,6 +41,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1004038406822754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4009678994246332}
+  - component: {fileID: 20136750155810984}
+  - component: {fileID: 124526691463264956}
+  - component: {fileID: 114517344331312868}
+  m_Layer: 9
+  m_Name: TpsCam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1014391085971636
 GameObject:
   m_ObjectHideFlags: 1
@@ -356,7 +374,7 @@ GameObject:
   - component: {fileID: 81335507571387664}
   - component: {fileID: 114395809124856246}
   m_Layer: 9
-  m_Name: Camera
+  m_Name: FpsCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,6 +827,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4009678994246332
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004038406822754}
+  m_LocalRotation: {x: 0.043619405, y: 0, z: 0, w: 0.9990483}
+  m_LocalPosition: {x: 0.2, y: 1, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4211135450760298}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
 --- !u!4 &4012301006614136
 Transform:
   m_ObjectHideFlags: 1
@@ -930,13 +961,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1657470762533004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.915282, y: 0, z: 7.2776093}
+  m_LocalPosition: {x: -25.106148, y: 0, z: 6.504617}
   m_LocalScale: {x: 2.4058347, y: 2.4058337, z: 2.4058337}
   m_Children:
   - {fileID: 4630687442373390}
   - {fileID: 4723802301294846}
   - {fileID: 4307731370709870}
   - {fileID: 4844637500802536}
+  - {fileID: 4009678994246332}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1536,6 +1568,42 @@ Transform:
   m_Father: {fileID: 4284331366695334}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &20136750155810984
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004038406822754}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!20 &20961937502082956
 Camera:
   m_ObjectHideFlags: 1
@@ -1644,7 +1712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf8e7a378e802940a8d4a56040748c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 20993632080549776}
   mask:
     serializedVersion: 2
     m_Bits: 4294966783
@@ -1697,6 +1764,18 @@ MonoBehaviour:
   param3: 
   param4: 
   param5: 
+--- !u!114 &114517344331312868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004038406822754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: d2b82a52b13b9014d988055d0b2f939e, type: 2}
 --- !u!114 &114584667012285018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1713,6 +1792,7 @@ MonoBehaviour:
   - {fileID: 20993632080549776}
   - {fileID: 20961937502082956}
   - {fileID: 81335507571387664}
+  - {fileID: 20136750155810984}
   remoteLayerName: RemotePlayer
   hudPrefab: {fileID: 114138888560204792, guid: b21021ea3b6f7a34192174e2cd1aac12,
     type: 2}
@@ -1785,7 +1865,9 @@ MonoBehaviour:
   gravity: 20
   cameraRotationLimit: 85
   lookSensitivity: 80
-  cam: {fileID: 20993632080549776}
+  fpsCam: {fileID: 20993632080549776}
+  tpsCam: {fileID: 20136750155810984}
+  weaponCam: {fileID: 20961937502082956}
 --- !u!114 &114861561037680918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1826,6 +1908,13 @@ MonoBehaviour:
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.2
   m_InterpolateMovement: 0
+--- !u!124 &124526691463264956
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004038406822754}
+  m_Enabled: 1
 --- !u!124 &124967064109187364
 Behaviour:
   m_ObjectHideFlags: 1

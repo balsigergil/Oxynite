@@ -9,7 +9,6 @@ public class Scoreboard : MonoBehaviour {
     [SerializeField]
     private TMP_Text scoreboardItemPrefab;
 
-    // TODO Use delegates instead of Update()
     void Update()
     {
         ClearScoreboard();

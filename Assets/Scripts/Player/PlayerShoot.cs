@@ -13,11 +13,6 @@ public class PlayerShoot : NetworkBehaviour
     private Weapon currentWeapon;
 
     /// <summary>
-    /// Player camera for ray casting
-    /// </summary>
-    [SerializeField] private Camera cam;
-
-    /// <summary>
     /// Layer mask for ray casting
     /// </summary>
     [SerializeField] private LayerMask mask;
@@ -29,10 +24,6 @@ public class PlayerShoot : NetworkBehaviour
 
     void Start()
     {
-        if (!cam)
-        {
-            enabled = false;
-        }
         weaponManager = GetComponent<WeaponManager>();
     }
 
@@ -130,7 +121,8 @@ public class PlayerShoot : NetworkBehaviour
                     weaponManager.StartCoroutine(weaponManager.ReloadWeapon());
 
                 RaycastHit _hit;
-                if (Physics.Raycast(cam.transform.position, cam.transform.forward, out _hit, currentWeapon.range, mask))
+                Camera currentCamera = GetComponent<PlayerController>().GetActiveCam();
+                if (Physics.Raycast(currentCamera.transform.position, currentCamera.transform.forward, out _hit, currentWeapon.range, mask))
                 {
                     if (_hit.collider.tag == PLAYER_TAG)
                     {

@@ -26,7 +26,8 @@ public class Weapon : NetworkBehaviour {
     [ClientRpc]
     public void RpcDecreaseAmmo()
     {
-        ammunition -= 1;
+        if(ammunition > 0)
+            ammunition -= 1;
     }
 
     [ClientRpc]
