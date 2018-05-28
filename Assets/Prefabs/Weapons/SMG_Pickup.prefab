@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityCollider: {fileID: 135066524100223656}
-  damage: 10
+  damage: 5
   range: 100
   magazineSize: 50
   totalAmmunitionCount: 200

@@ -66,7 +66,7 @@ public class WeaponManager : NetworkBehaviour
             CmdDropWeapon();
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && currentWeapon != null)
+        if (Input.GetKeyDown(KeyCode.R) && currentWeapon != null && currentWeapon.ammunitionCount > 0 && currentWeapon.ammunition < currentWeapon.magazineSize)
         {
             StartCoroutine(ReloadWeapon());
         }
@@ -105,7 +105,7 @@ public class WeaponManager : NetworkBehaviour
     public IEnumerator ReloadWeapon()
     {
         isReloading = true;
-        if (currentWeapon.ammunitionCount > 0)
+        if (currentWeapon.ammunitionCount > 0 && currentWeapon.ammunition < currentWeapon.magazineSize)
             hud.GetLoader().StartReloading(currentWeapon.reloadTime);
 
         yield return new WaitForSeconds(currentWeapon.reloadTime);
@@ -113,14 +113,14 @@ public class WeaponManager : NetworkBehaviour
         if (currentWeapon != null)
         {
             int delta = currentWeapon.magazineSize - currentWeapon.ammunition;
-            if (currentWeapon.ammunitionCount - delta > 0)
+            if (currentWeapon.ammunitionCount - delta >= 0)
             {
                 CmdSetAmmo(currentWeapon.magazineSize);
                 CmdSetAmmoTot(currentWeapon.ammunitionCount - delta);
             }
             else
             {
-                CmdSetAmmo(currentWeapon.ammunitionCount);
+                CmdSetAmmo(currentWeapon.ammunitionCount + currentWeapon.ammunition);
                 CmdSetAmmoTot(0);
             }
         }
