@@ -21,7 +21,7 @@ public class WeaponManager : NetworkBehaviour
     /// <summary>
     /// Equipped weapon
     /// </summary>
-    private Weapon currentWeapon;
+    public Weapon currentWeapon;
 
     private GameObject currentWeaponPickup;
 
