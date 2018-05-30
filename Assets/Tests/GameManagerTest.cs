@@ -4,10 +4,10 @@ using NUnit.Framework;
 
 public class GameManagerTest {
 
-	/*[Test]
+    /*[Test]
 	public void GameManager_RegisterNewPlayer() {
         GameManager.players.Clear();
-        Object playerPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Player.prefab", typeof(Player));
+        Object playerPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Sci-Fi_Soldier.prefab", typeof(Player));
         Player player1 = PrefabUtility.InstantiatePrefab(playerPrefab) as Player;
         Player player2 = PrefabUtility.InstantiatePrefab(playerPrefab) as Player;
         GameManager.RegisterPlayer("test01", player1);
@@ -19,7 +19,7 @@ public class GameManagerTest {
     public void GameManager_UnRegisterNewPlayer()
     {
         GameManager.players.Clear();
-        Object playerPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Player.prefab", typeof(Player));
+        Object playerPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Sci-Fi_Soldier.prefab", typeof(Player));
         Player player1 = PrefabUtility.InstantiatePrefab(playerPrefab) as Player;
         Player player2 = PrefabUtility.InstantiatePrefab(playerPrefab) as Player;
         GameManager.RegisterPlayer("test01", player1);

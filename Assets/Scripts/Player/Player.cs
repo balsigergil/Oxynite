@@ -205,7 +205,8 @@ public class Player : NetworkBehaviour
 
     void Start()
     {
-        SetPlayerName();
+        if(isLocalPlayer)
+            SetPlayerName();
     }
 
     [Client]
