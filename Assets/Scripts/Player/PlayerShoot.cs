@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 23.04.2018
+/// Summary: Handles the shooting
+
+using UnityEngine;
 using UnityEngine.Networking;
 
 /// <summary>
@@ -113,8 +118,10 @@ public class PlayerShoot : NetworkBehaviour
         {
             if (currentWeapon.ammunition > 0)
             {
+                // Hit particles
                 CmdOnShoot();
 
+                // Decrease ammunition
                 weaponManager.CmdDecreaseAmmo();
 
                 if (currentWeapon.ammunition == 0)
@@ -134,6 +141,7 @@ public class PlayerShoot : NetworkBehaviour
             }
             else
             {
+                // Reload if no more ammunitions
                 weaponManager.StartCoroutine(weaponManager.ReloadWeapon());
             }
         }

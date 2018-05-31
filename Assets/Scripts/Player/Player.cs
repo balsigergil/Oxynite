@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 20.04.2018
+/// Summary: Handles server properties and action in the main menu
+
+using UnityEngine;
 using UnityEngine.Networking;
 
 /// <summary>
@@ -13,9 +18,11 @@ public class Player : NetworkBehaviour
         protected set { _isDead = value; }
     }
 
-    [SyncVar]
-    public string playerName;
+    [SyncVar] public string playerName;
 
+    /// <summary>
+    /// Maximum health
+    /// </summary>
     [SerializeField] private int maxHealth = 100;
 
     /// <summary>
@@ -23,6 +30,9 @@ public class Player : NetworkBehaviour
     /// </summary>
     [SyncVar] private int health;
 
+    /// <summary>
+    /// Kill count
+    /// </summary>
     [SyncVar] private int kills;
 
     /// <summary>
@@ -30,8 +40,14 @@ public class Player : NetworkBehaviour
     /// </summary>
     private HUD hud;
 
+    /// <summary>
+    /// End menu instance
+    /// </summary>
     private EndMenu endMenu;
 
+    /// <summary>
+    /// Game menu instance
+    /// </summary>
     private GameMenu gameMenu;
 
     /// <summary>
@@ -45,13 +61,24 @@ public class Player : NetworkBehaviour
     /// </summary>
     private bool[] wasEnabled;
 
-    [SerializeField]
-    private EndMenu endMenuPrefab;
+    /// <summary>
+    /// Use to create the end menu
+    /// </summary>
+    [SerializeField] private EndMenu endMenuPrefab;
 
+    /// <summary>
+    /// To deactivate when dying
+    /// </summary>
     private GameObject cam;
 
+    /// <summary>
+    /// Player who killed this player
+    /// </summary>
     private Player sourcePlayer;
 
+    /// <summary>
+    /// Update kill count on HUD
+    /// </summary>
     private void Update()
     {
         if (!isLocalPlayer)
@@ -100,7 +127,7 @@ public class Player : NetworkBehaviour
     }
 
     /// <summary>
-    /// Disables components to disable and respawn the player
+    /// Disables components to disable and activate the spectator camera
     /// </summary>
     private void Die(string sourceID)
     {
@@ -209,6 +236,9 @@ public class Player : NetworkBehaviour
             SetPlayerName();
     }
 
+    /// <summary>
+    /// Set the player name and informes all clients
+    /// </summary>
     [Client]
     void SetPlayerName()
     {

@@ -1,19 +1,33 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 24.04.2018
+/// Summary: Menu in game
+
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
 
+/// <summary>
+/// Menu in game
+/// </summary>
 public class GameMenu : MonoBehaviour
 {
 
     public static bool isOn = false;
     public static bool lockCursor = true;
 
+    /// <summary>
+    /// When the player click on "Quit"
+    /// </summary>
     public void QuitGame()
     {
         LeaveGame();
         Application.Quit();
     }
 
+    /// <summary>
+    /// When the player click on "Leave"
+    /// </summary>
     public void LeaveGame()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -61,6 +75,9 @@ public class GameMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enable the game menu and unlock the cursor
+    /// </summary>
     void On()
     {
         isOn = true;
@@ -69,6 +86,9 @@ public class GameMenu : MonoBehaviour
         Cursor.visible = true;
     }
 
+    /// <summary>
+    /// Disable the game menu and lock the cursor
+    /// </summary>
     void Off()
     {
         isOn = false;

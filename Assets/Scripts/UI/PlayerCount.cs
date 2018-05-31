@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 22.04.2018
+/// Summary: Animated loader used when reloading
+
+using UnityEngine;
 using TMPro;
 
 /// <summary>

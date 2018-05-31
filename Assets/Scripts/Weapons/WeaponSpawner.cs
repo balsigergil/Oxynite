@@ -1,11 +1,24 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 18.05.2018
+/// Summary: Handles the weapons spawning
+
+using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Handles the weapons spawning
+/// </summary>
 public class WeaponSpawner : NetworkBehaviour {
 
-    [SerializeField]
-    private Weapon[] weaponsPrefab;
+    /// <summary>
+    /// Different weapons to instantiate randomly
+    /// </summary>
+    [SerializeField] private Weapon[] weaponsPrefab;
 
+    /// <summary>
+    /// Spawn weapons
+    /// </summary>
     [Command]
 	public void CmdSpawnWeapons()
     {

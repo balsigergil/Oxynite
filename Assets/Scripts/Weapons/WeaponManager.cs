@@ -1,9 +1,14 @@
-﻿using System.Collections;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 15.05.2018
+/// Summary: Handles player weapon
+
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
 /// <summary>
-/// Handles weapon spawning
+/// Handles player weapon
 /// </summary>
 public class WeaponManager : NetworkBehaviour
 {
@@ -23,12 +28,21 @@ public class WeaponManager : NetworkBehaviour
     /// </summary>
     public Weapon currentWeapon;
 
+    /// <summary>
+    /// Current weapon pickup game object
+    /// </summary>
     private GameObject currentWeaponPickup;
 
+    /// <summary>
+    /// Current weapon game object
+    /// </summary>
     private GameObject weaponInstance;
 
     public bool isReloading = false;
 
+    /// <summary>
+    /// Used to update ammunitions on HUD
+    /// </summary>
     private HUD hud;
 
     /// <summary>
@@ -36,7 +50,14 @@ public class WeaponManager : NetworkBehaviour
     /// </summary>
     private WeaponGraphics currentGraphics;
 
+    /// <summary>
+    /// Animation controller for player with a weapon
+    /// </summary>
     [SerializeField] private RuntimeAnimatorController controllerWithWeapon;
+
+    /// <summary>
+    /// Animation controller for player without a weapon
+    /// </summary>
     [SerializeField] private RuntimeAnimatorController controllerWithoutWeapon;
 
     void Awake()
@@ -58,6 +79,7 @@ public class WeaponManager : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
+        // Drop the weapon
         if (Input.GetKeyDown(KeyCode.Q) && currentWeapon != null)
         {
             GetComponent<PlayerSetup>().GetHudInstance().GetLoader().StopReloading();
@@ -66,11 +88,13 @@ public class WeaponManager : NetworkBehaviour
             CmdDropWeapon();
         }
 
+        // Reload the weapon
         if (Input.GetKeyDown(KeyCode.R) && currentWeapon != null && currentWeapon.ammunitionCount > 0 && currentWeapon.ammunition < currentWeapon.magazineSize)
         {
             StartCoroutine(ReloadWeapon());
         }
 
+        // Set ammunition text
         if (hud != null && currentWeapon != null)
             hud.SetAmmunitionText(currentWeapon.ammunition + " / " + currentWeapon.ammunitionCount);
 
@@ -102,6 +126,10 @@ public class WeaponManager : NetworkBehaviour
             weaponInstance.layer = LayerMask.NameToLayer(weaponLayerName);
     }
 
+    /// <summary>
+    /// Wait for the reload time and update the ammunitions
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator ReloadWeapon()
     {
         isReloading = true;
@@ -151,6 +179,9 @@ public class WeaponManager : NetworkBehaviour
         RpcDropWeapon();
     }
 
+    /// <summary>
+    /// Reset current weapon and graphics, destroy the weapon instance
+    /// </summary>
     [ClientRpc]
     void RpcDropWeapon()
     {
@@ -170,6 +201,7 @@ public class WeaponManager : NetworkBehaviour
 
     void OnTriggerStay(Collider other)
     {
+        // Pick up the weapon
         if (other.tag == "WeaponItem" && Input.GetKeyDown(KeyCode.E) && isLocalPlayer)
         {
             if (other.GetComponent<Weapon>())
@@ -187,6 +219,10 @@ public class WeaponManager : NetworkBehaviour
         RpcPickWeapon(weaponPickup);
     }
 
+    /// <summary>
+    /// Equips the weapon
+    /// </summary>
+    /// <param name="weaponPickup"></param>
     [ClientRpc]
     void RpcPickWeapon(GameObject weaponPickup)
     {

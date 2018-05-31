@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 17.04.2018
+/// Summary: Handles the LAN server discovery
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;

@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 20.04.2018
+/// Summary: Handles player movements and rotation
+
+using UnityEngine;
 using UnityEngine.Networking;
 
 /// <summary>
@@ -59,6 +64,7 @@ public class PlayerController : MonoBehaviour
         Rotate();
         CamRotate();
 
+        // Camera switching
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (fpsCam.enabled)
@@ -78,6 +84,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Player movement on X and Z
+    /// </summary>
     void Move()
     {
         CharacterController controller = GetComponent<CharacterController>();
@@ -106,6 +115,9 @@ public class PlayerController : MonoBehaviour
         controller.Move(moveDirection * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Player rotation over Y
+    /// </summary>
     void Rotate()
     {
         // Player rotation (Pitch)
@@ -116,6 +128,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Player camera rotation over X
+    /// </summary>
     void CamRotate()
     {
         // Camera rotation (Yaw)

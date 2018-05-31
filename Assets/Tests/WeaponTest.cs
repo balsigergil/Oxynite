@@ -1,16 +1,32 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 30.05.2018
+/// Summary: Test weapon class
+
+using UnityEngine;
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Test weapon class
+/// </summary>
 public class NewTestScript
 {
-
+    /// <summary>
+    /// Fake weapon
+    /// </summary>
     Weapon weapon;
 
+    /// <summary>
+    /// Fake WeaponManager
+    /// </summary>
     WeaponManager wm;
 
+    /// <summary>
+    /// Prepare the environment
+    /// </summary>
     void Setup()
     {
         // NetworkManager creation

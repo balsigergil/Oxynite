@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 08.05.2018
+/// Summary: Handles online players, weapon spawner and start countdown
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -10,7 +15,7 @@ public enum GameState
 }
 
 /// <summary>
-/// Handles online players
+/// Handles online players, weapon spawner and start countdown
 /// </summary>
 public class GameManager : NetworkBehaviour {
 
@@ -22,20 +27,26 @@ public class GameManager : NetworkBehaviour {
     // Online players
     public static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
-    [SerializeField]
-    private WeaponSpawner weaponSpawner;
+    /// <summary>
+    /// Weapon spawner game object
+    /// </summary>
+    [SerializeField] private WeaponSpawner weaponSpawner;
 
     public static GameManager singleton;
 
+    /// <summary>
+    /// Countdown time in seconds
+    /// </summary>
     private const float COUNTDOWN = 5;
 
-    [SyncVar]
-    private float currCountdown;
+    /// <summary>
+    /// Countdown synchronization
+    /// </summary>
+    [SyncVar] private float currCountdown;
 
     private HUD hudInstance;
 
-    [SyncVar]
-    public GameState gameState = GameState.WAITING;
+    [SyncVar] public GameState gameState = GameState.WAITING;
 
     void Awake()
     {
@@ -55,6 +66,10 @@ public class GameManager : NetworkBehaviour {
         StartCoroutine(LoopStartGame());
     }
 
+    /// <summary>
+    /// Loops until the countdown is finished, spawn weapons after that
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator LoopStartGame()
     {
         yield return new WaitForSeconds(2f);

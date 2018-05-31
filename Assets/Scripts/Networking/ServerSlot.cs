@@ -1,4 +1,9 @@
-﻿using TMPro;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 18.04.2018
+/// Summary: Handles server properties and action in the main menu
+
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking.Match;
 
@@ -26,6 +31,11 @@ public class ServerSlot : MonoBehaviour {
         gameObject.tag = "LAN";
     }
 
+    /// <summary>
+    /// Setup WAN server slot in the UI
+    /// </summary>
+    /// <param name="match"></param>
+    /// <param name="joinRoom"></param>
     public void SetupWAN(MatchInfoSnapshot match, JoinRoomDelegate joinRoom)
     {
         isLAN = false;
@@ -35,6 +45,9 @@ public class ServerSlot : MonoBehaviour {
         gameObject.tag = "WAN";
     }
 
+    /// <summary>
+    /// Invoke join callback
+    /// </summary>
     public void JoinRoom()
     {
         if(isLAN)

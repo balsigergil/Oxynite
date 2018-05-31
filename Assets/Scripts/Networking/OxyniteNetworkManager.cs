@@ -1,4 +1,9 @@
-﻿using UnityEngine.Networking;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 18.04.2018
+/// Summary: Handle networking actions
+
+using UnityEngine.Networking;
 
 /// <summary>
 /// Handle networking actions

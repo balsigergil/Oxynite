@@ -1,4 +1,9 @@
-﻿/// <summary>
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 16.05.2018
+/// Summary: Contains informations about a LAN server
+
+/// <summary>
 /// Contains informations about a LAN server
 /// </summary>
 public struct LanEntry {

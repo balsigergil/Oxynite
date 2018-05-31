@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 15.05.2018
+/// Summary: Weapon graphics properties
+
 using UnityEngine;
 
 /// <summary>

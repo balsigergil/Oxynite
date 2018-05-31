@@ -1,14 +1,29 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 16.05.2018
+/// Summary: Scoreboard on the game menu
+
+using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Scoreboard on the game menu
+/// </summary>
 public class Scoreboard : MonoBehaviour {
 
-    [SerializeField]
-    private RectTransform content;
+    /// <summary>
+    /// Parent for all items
+    /// </summary>
+    [SerializeField] private RectTransform content;
 
-    [SerializeField]
-    private TMP_Text scoreboardItemPrefab;
+    /// <summary>
+    /// To instantiate when a player joins
+    /// </summary>
+    [SerializeField] private TMP_Text scoreboardItemPrefab;
 
+    /// <summary>
+    /// Update scoreboard each frame
+    /// </summary>
     void Update()
     {
         ClearScoreboard();
@@ -20,6 +35,9 @@ public class Scoreboard : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Removes all entries
+    /// </summary>
     void ClearScoreboard()
     {
         for(int i = 0; i < content.childCount; i++)

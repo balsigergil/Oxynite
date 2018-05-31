@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 20.04.2018
+/// Summary: Handles player preparation
+
+using UnityEngine;
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(Player))]

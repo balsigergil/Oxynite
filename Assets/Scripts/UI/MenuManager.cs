@@ -1,11 +1,16 @@
-﻿using UnityEngine;
+﻿/// ETML
+/// Author: Gil Balsiger
+/// Date: 25.04.2018
+/// Summary: Handles all interactions within the main menu
+
+using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking.Match;
 
 /// <summary>
-/// The MenuManager class handles all interactions with the main menu
+/// The MenuManager class handles all interactions within the main menu
 /// </summary>
 public class MenuManager : MonoBehaviour
 {
@@ -110,7 +115,10 @@ public class MenuManager : MonoBehaviour
             networkDiscovery.StartBroadcasting();
         }
     }
-
+    
+    /// <summary>
+    /// Create internet match
+    /// </summary>
     public void HostInternetGame()
     {
         networkManager.StartMatchMaker();
